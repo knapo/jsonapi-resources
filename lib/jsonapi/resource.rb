@@ -409,6 +409,7 @@ module JSONAPI
         subclass.abstract(false)
         subclass.immutable(false)
         subclass.caching(false)
+        subclass.without_links(false)
         subclass._attributes = (_attributes || {}).dup
         subclass._model_hints = (_model_hints || {}).dup
 
@@ -969,6 +970,14 @@ module JSONAPI
 
       def _caching
         @caching
+      end
+
+      def without_links(val = true)
+        @without_links = val
+      end
+
+      def _without_links
+        @without_links
       end
 
       def caching?

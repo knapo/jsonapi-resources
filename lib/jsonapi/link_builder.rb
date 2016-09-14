@@ -35,16 +35,22 @@ module JSONAPI
     end
 
     def relationships_related_link(source, relationship, query_params = {})
+      return if source._without_links
+
       url = "#{ self_link(source) }/#{ route_for_relationship(relationship) }"
       url = "#{ url }?#{ query_params.to_query }" if query_params.present?
       url
     end
 
     def relationships_self_link(source, relationship)
+      return if source._without_links
+
       "#{ self_link(source) }/relationships/#{ route_for_relationship(relationship) }"
     end
 
     def self_link(source)
+      return if source._without_links
+
       if engine?
         engine_resource_url(source)
       else
